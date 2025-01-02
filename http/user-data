@@ -1,0 +1,36 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    allow-pw: true
+    disable_root: false
+  packages:
+    - qemu-guest-agent
+  late-commands:
+    - |
+      if [ -d /sys/firmware/efi ]; then
+        apt-get install -y efibootmgr
+        efibootmgr -o $(efibootmgr | perl -n -e '/Boot(.+)\* ubuntu/ && print $1')
+      fi
+    - echo "PermitRootLogin yes" >> /target/etc/ssh/sshd_config
+    - echo "PasswordAuthentication yes" >> /target/etc/ssh/sshd_config
+    - chroot /target systemctl restart ssh
+
+  user-data:
+    preserve_hostname: false
+    hostname: packerubuntu
+    timezone: Asia/Tehran
+    chpasswd:
+      expire: true
+    users:
+      - name: root
+        plain_text_passwd: setare20
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
+     
+
