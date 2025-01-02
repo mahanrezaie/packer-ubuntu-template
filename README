@@ -1,0 +1,14 @@
+
+After you clone you should make your variables file, you should put api keys and sensitive stuff in it.
+
+## validate your template
+
+```
+bash <(packer validate -var-file=variables.pkrvars.hcl ubuntu-server.pkr.hcl)
+```
+
+## build
+
+```
+bash <(packer build -var-file=variables.pkrvars.hcl ubuntu-server.pkr.hcl)
+```
