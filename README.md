@@ -1,4 +1,4 @@
-After you made you variables file with api keys and everything you need, you can proceed to use like this.
+After you made your variables file with api keys and everything you need, you can proceed to use like this.
 
 ## validate your template
 
